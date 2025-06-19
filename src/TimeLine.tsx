@@ -4,20 +4,24 @@ import ReactGA from "react-ga4";
 
 const TimeLine = () => {
   const [translateY, setTranslateY] = useState(0);
+  const [hasSentScrollEvent, setHasSentScrollEvent] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      ReactGA.event({
-        category: "Scroll",
-        action: "Scroll_profile",
-      });
+      if (!hasSentScrollEvent && window.scrollY > 200) {
+        ReactGA.event({
+          category: "Scroll",
+          action: "Scroll_profile",
+        });
+        setHasSentScrollEvent(true);
+      }
       const offset = window.scrollY * 2;
       setTranslateY(-offset);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [hasSentScrollEvent]);
 
   return (
     <div
