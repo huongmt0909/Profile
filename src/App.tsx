@@ -3,12 +3,42 @@ import avatar from "./assets/avatar.jpg";
 import Facebook from "./assets/facebook.svg?react";
 import Github from "./assets/github.svg?react";
 import Linkedin from "./assets/linkedin.svg?react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import TimeLine from "./TimeLine";
+import ghequa from "./assets/ghequa.mp3";
+import Play from "./assets/play.svg?react";
+import Pause from "./assets/pause.svg?react";
 
 function App() {
   const [percent, setPercent] = useState(0);
   const [showOverlay, setShowOverlay] = useState(true);
   const [showSeeMore, setShowSeeMore] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const handlePlay = () => {
+    if (audioRef.current) {
+      audioRef.current.volume = 0.5;
+      audioRef.current.play();
+      setIsPlaying(true);
+    }
+  };
+
+  const handleSeeMore = () => {
+    setShowOverlay(false);
+    handlePlay();
+  };
+
+  const handlePause = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  const handleMouseEnter = () => setIsFlipped(true);
+  const handleMouseLeave = () => setIsFlipped(false);
 
   useEffect(() => {
     let start = 0;
@@ -41,7 +71,30 @@ function App() {
       <div className="app-header">
         <div className="app-header-left">
           <div className="app-header-left-logo">
-            <img src={avatar} alt="avatar" />
+            <div
+              className={`flip-card${isFlipped ? " flipped" : ""}`}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <div className="flip-card-inner">
+                <div className="flip-card-front">
+                  <img src={avatar} alt="avatar" />
+                </div>
+                <div className="flip-card-back">
+                  {isPlaying ? (
+                    <Pause
+                      style={{ width: 80, height: 80 }}
+                      onClick={handlePause}
+                    />
+                  ) : (
+                    <Play
+                      style={{ width: 80, height: 80 }}
+                      onClick={handlePlay}
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
           <div className="app-header-left-name">
             <h1 className="font-hand-pre">Hướng MT</h1>
@@ -100,7 +153,7 @@ function App() {
               className={`see-more-btn font-hand-pre${
                 showSeeMore ? " see-more-animate" : ""
               }`}
-              onClick={() => setShowOverlay(false)}
+              onClick={handleSeeMore}
               style={{ pointerEvents: showSeeMore ? "auto" : "none" }}
             >
               See more
@@ -108,14 +161,39 @@ function App() {
           </div>
         </div>
       </div>
-      <div className="progress-counter">{percent}%</div>
+      <div className="progress-counter font-hand-pre">{percent}%</div>
     </div>
   );
 
   return (
     <div className="app">
+      <audio ref={audioRef} src={ghequa} loop />
       {renderFrontApp()}
-      <div className="main-content">main</div>
+      <div className="main-info">
+        <div className="explain-text">
+          <h1>Hello world!</h1>
+          <p>
+            I'm Huong, a web and Flutter application developer with a passion
+            for crafting modern, intuitive interfaces and delivering exceptional
+            user experiences. I focus on blending design and performance to
+            build systems that are not only visually appealing but also smooth
+            and user-friendly. With a mindset of continuous learning, I'm always
+            seeking opportunities to enhance my skills and contribute to
+            creative, meaningful projects.
+          </p>
+        </div>
+        <div className="border-line" />
+        <div className="explain-text">
+          <p>
+            Outside of work, I enjoy exploring new design trends, experimenting
+            with UI/UX prototypes, and contributing to open-source projects when
+            possible. In my free time, I often read books on personal
+            development or unwind with music and play games.
+          </p>
+        </div>
+        <div className="border-line" />
+      </div>
+      <TimeLine />
     </div>
   );
 }

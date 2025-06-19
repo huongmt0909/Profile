@@ -18,6 +18,7 @@
   width: 100%;
   height: 100%;
   animation: spin 20s linear infinite;
+  border-radius: 50%;
 }
 
 .app-header-left-name {
@@ -48,6 +49,7 @@
 .social-icon {
   animation: bounce 0.5s infinite alternate;
   transition: transform 0.2s, box-shadow 0.2s;
+  border-radius: 50%;
 }
 
 .social-icon:hover {
@@ -71,15 +73,10 @@
   position: fixed;
   right: 24px;
   bottom: 24px;
-  font-size: 4rem;
+  font-size: 2rem;
   font-weight: bold;
   color: #e0e0e0;
-  background: rgba(0, 0, 0, 0.7);
-  padding: 8px 20px;
-  border-radius: 24px;
   z-index: 1000;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  user-select: none;
 }
 
 .see-more-btn {
@@ -146,4 +143,78 @@
     font-size: 20px;
     padding: 5px 20px;
   }
+}
+
+.explain-text h1 {
+  font-size: 4rem;
+  font-weight: bold;
+  color: #b3a9a9;
+  text-shadow: 0 4px 24px rgba(79, 195, 247, 0.25), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+  letter-spacing: 1px;
+}
+
+.explain-text p {
+  font-size: 1.6rem;
+  color: #b3a9a9;
+  text-shadow: 0 2px 8px rgba(79, 195, 247, 0.10);
+  margin: 0 100px;
+}
+
+
+.border-line {
+  width: 100%;
+  height: 1px;
+  background: #b3a9a9;
+  margin: 20px 0;
+  margin-bottom: 100px;
+  margin-top: 100px;
+}
+
+.main-info {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+.flip-card {
+  width: 250px;
+  height: 250px;
+  perspective: 600px;
+  display: inline-block;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(.4, 2, .6, 1);
+  transform-style: preserve-3d;
+}
+
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flip-card-front {
+  z-index: 2;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+  z-index: 1;
+  cursor: pointer;
 }
