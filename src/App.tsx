@@ -16,6 +16,7 @@ function App() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isFlipped, setIsFlipped] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const flipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handlePlay = () => {
     if (audioRef.current) {
@@ -37,8 +38,18 @@ function App() {
     }
   };
 
-  const handleMouseEnter = () => setIsFlipped(true);
-  const handleMouseLeave = () => setIsFlipped(false);
+  const handleMouseEnter = () => {
+    setIsFlipped(true);
+    if (flipTimeoutRef.current) clearTimeout(flipTimeoutRef.current);
+    flipTimeoutRef.current = setTimeout(() => {
+      setIsFlipped(false);
+    }, 5000);
+  };
+
+  const handleMouseLeave = () => {
+    setIsFlipped(false);
+    if (flipTimeoutRef.current) clearTimeout(flipTimeoutRef.current);
+  };
 
   useEffect(() => {
     let start = 0;
@@ -65,6 +76,12 @@ function App() {
       setTimeout(() => setShowSeeMore(true), 100);
     }
   }, [percent]);
+
+  useEffect(() => {
+    return () => {
+      if (flipTimeoutRef.current) clearTimeout(flipTimeoutRef.current);
+    };
+  }, []);
 
   const renderFrontApp = () => (
     <div className={`front-overlay${showOverlay ? "" : " hide"}`}>

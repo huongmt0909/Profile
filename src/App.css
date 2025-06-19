@@ -218,3 +218,10 @@
   z-index: 1;
   cursor: pointer;
 }
+
+@media (max-width: 600px) {
+  .see-more-btn {
+    position: fixed;
+    left: 25%;
+  }
+}
