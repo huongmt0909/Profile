@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import "./TimeLine.css";
+import ReactGA from "react-ga4";
 
 const TimeLine = () => {
   const [translateY, setTranslateY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Điều chỉnh tốc độ dịch chuyển bằng cách thay đổi hệ số (vd: 0.5)
+      ReactGA.event({
+        category: "Scroll",
+        action: "Scroll_profile",
+      });
       const offset = window.scrollY * 2;
       setTranslateY(-offset);
     };

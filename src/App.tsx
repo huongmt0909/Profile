@@ -8,6 +8,10 @@ import TimeLine from "./TimeLine";
 import ghequa from "./assets/ghequa.mp3";
 import Play from "./assets/play.svg?react";
 import Pause from "./assets/pause.svg?react";
+import ReactGA from "react-ga4";
+
+ReactGA.initialize(`G-VD9Q8HP078`);
+ReactGA.send("pageview");
 
 function App() {
   const [percent, setPercent] = useState(0);
@@ -19,6 +23,10 @@ function App() {
   const flipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handlePlay = () => {
+    ReactGA.event({
+      category: "Audio",
+      action: "Play",
+    });
     if (audioRef.current) {
       audioRef.current.volume = 0.5;
       audioRef.current.play();
@@ -27,11 +35,19 @@ function App() {
   };
 
   const handleSeeMore = () => {
+    ReactGA.event({
+      category: "Button",
+      action: "See_more",
+    });
     setShowOverlay(false);
     handlePlay();
   };
 
   const handlePause = () => {
+    ReactGA.event({
+      category: "Button",
+      action: "Pause",
+    });
     if (audioRef.current) {
       audioRef.current.pause();
       setIsPlaying(false);
