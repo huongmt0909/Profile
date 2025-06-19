@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./TimeLine.css";
 import ReactGA from "react-ga4";
 
-const TimeLine = () => {
+const TimeLine = ({ isLiked }: { isLiked: boolean }) => {
   const [translateY, setTranslateY] = useState(0);
   const [hasSentScrollEvent, setHasSentScrollEvent] = useState(false);
 
@@ -32,10 +32,21 @@ const TimeLine = () => {
         transition: "transform 0.1s linear",
       }}
     >
-      <div className="timeline">
+      <div
+        className="timeline"
+        style={{
+          backgroundColor: !isLiked
+            ? "rgba(27, 25, 25, 0.8)"
+            : "rgba(255, 255, 255, 0.8)",
+        }}
+      >
         <div className="timeline-row">
           <div className="timeline-item left">
-            <div className="timeline-content">
+            <div
+              className={`timeline-content${
+                isLiked ? " timeline-content_2" : " timeline-content_1"
+              }`}
+            >
               <div className="timeline-year">2018</div>
               <h3>Study at Thuy Loi University</h3>
               <p>
@@ -50,7 +61,11 @@ const TimeLine = () => {
             <div className="timeline-dot"></div>
           </div>
           <div className="timeline-item right">
-            <div className="timeline-content">
+            <div
+              className={`timeline-content${
+                isLiked ? " timeline-content_2" : " timeline-content_1"
+              }`}
+            >
               <div className="timeline-year">07/2022</div>
               <h3>Joined Bunbu company</h3>
               <p>
@@ -67,7 +82,11 @@ const TimeLine = () => {
             <div className="timeline-dot"></div>
           </div>
           <div className="timeline-item left">
-            <div className="timeline-content">
+            <div
+              className={`timeline-content${
+                isLiked ? " timeline-content_2" : " timeline-content_1"
+              }`}
+            >
               <div className="timeline-year">01/2023</div>
               <h3>Graduated from Thuy Loi University</h3>
               <p>
@@ -83,7 +102,11 @@ const TimeLine = () => {
             <div className="timeline-dot"></div>
           </div>
           <div className="timeline-item right">
-            <div className="timeline-content">
+            <div
+              className={`timeline-content${
+                isLiked ? " timeline-content_2" : " timeline-content_1"
+              }`}
+            >
               <div className="timeline-year">Present</div>
               <h3>Continue working at Bunbu company</h3>
             </div>

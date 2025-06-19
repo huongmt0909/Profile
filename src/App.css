@@ -22,7 +22,11 @@
 }
 
 .app-header-left-name {
-  background: linear-gradient(to right, #fff, #fff, transparent 90%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(to right, #fff, #fff, transparent 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -114,7 +118,6 @@
   position: fixed;
   inset: 0;
   top: 0;
-  background: #242424;
   z-index: 2000;
   display: flex;
   align-items: center;
@@ -148,16 +151,22 @@
 .explain-text h1 {
   font-size: 4rem;
   font-weight: bold;
-  color: #b3a9a9;
   text-shadow: 0 4px 24px rgba(79, 195, 247, 0.25), 0 1.5px 6px rgba(0, 0, 0, 0.12);
   letter-spacing: 1px;
 }
 
 .explain-text p {
   font-size: 1.6rem;
-  color: #b3a9a9;
   text-shadow: 0 2px 8px rgba(79, 195, 247, 0.10);
   margin: 0 100px;
+}
+
+.explain-text_color_1 {
+  color: #b3a9a9;
+}
+
+.explain-text_color_2 {
+  color: #fff;
 }
 
 
@@ -224,4 +233,56 @@
     position: fixed;
     left: 25%;
   }
+}
+
+.icon-hover-pop {
+  transition: transform 0.2s cubic-bezier(.4, 2, .6, 1), box-shadow 0.2s;
+}
+
+.icon-hover-pop:hover {
+  transform: scale(1.18);
+  box-shadow: 0 4px 24px 0 rgba(255, 0, 0, 0.15);
+  z-index: 2;
+}
+
+@keyframes heart-beat {
+  0% {
+    transform: scale(1);
+  }
+
+  10% {
+    transform: scale(1.2);
+  }
+
+  20% {
+    transform: scale(0.95);
+  }
+
+  30% {
+    transform: scale(1.1);
+  }
+
+  40% {
+    transform: scale(0.98);
+  }
+
+  50% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.heart-beat {
+  animation: heart-beat 1s infinite;
+  transition: transform 0.2s cubic-bezier(.4, 2, .6, 1), box-shadow 0.2s;
+}
+
+.heart-beat:hover {
+  animation-play-state: paused;
+  transform: scale(1.1);
+  z-index: 2;
+  animation: linear .5s infinite;
 }

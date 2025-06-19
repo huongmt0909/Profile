@@ -8,6 +8,7 @@ import TimeLine from "./TimeLine";
 import ghequa from "./assets/ghequa.mp3";
 import Play from "./assets/play.svg?react";
 import Pause from "./assets/pause.svg?react";
+import Heart from "./assets/heart.svg?react";
 import ReactGA from "react-ga4";
 
 ReactGA.initialize(`G-VD9Q8HP078`);
@@ -21,6 +22,7 @@ function App() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const flipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [isLiked, setIsLiked] = useState(false);
 
   const handlePlay = () => {
     ReactGA.event({
@@ -52,6 +54,14 @@ function App() {
       audioRef.current.pause();
       setIsPlaying(false);
     }
+  };
+
+  const handleLike = () => {
+    ReactGA.event({
+      category: "Button",
+      action: "Like",
+    });
+    setIsLiked(!isLiked);
   };
 
   const handleMouseEnter = () => {
@@ -100,7 +110,10 @@ function App() {
   }, []);
 
   const renderFrontApp = () => (
-    <div className={`front-overlay${showOverlay ? "" : " hide"}`}>
+    <div
+      className={`front-overlay${showOverlay ? "" : " hide"}`}
+      style={{ backgroundColor: !isLiked ? "#242424" : "#ff4a83" }}
+    >
       <div className="app-header">
         <div className="app-header-left">
           <div className="app-header-left-logo">
@@ -131,6 +144,16 @@ function App() {
           </div>
           <div className="app-header-left-name">
             <h1 className="font-hand-pre">Hướng MT</h1>
+            <Heart
+              onClick={handleLike}
+              className="heart-beat"
+              style={{
+                color: !isLiked ? "white" : "#6a6a6a",
+                cursor: "pointer",
+              }}
+              width={30}
+              height={30}
+            />
           </div>
           <div className="app-header-left-email">
             <a href="mailto:huongmt.0909@gmail.com" className="font-hand-pre">
@@ -202,8 +225,15 @@ function App() {
     <div className="app">
       <audio ref={audioRef} src={ghequa} loop />
       {renderFrontApp()}
-      <div className="main-info">
-        <div className="explain-text">
+      <div
+        className="main-info"
+        style={{ backgroundColor: !isLiked ? "#242424" : "#ff4a83" }}
+      >
+        <div
+          className={`explain-text${
+            isLiked ? " explain-text_color_2" : " explain-text_color_1"
+          }`}
+        >
           <h1>Hello world!</h1>
           <p>
             I'm Huong, a web and Flutter application developer with a passion
@@ -216,7 +246,11 @@ function App() {
           </p>
         </div>
         <div className="border-line" />
-        <div className="explain-text">
+        <div
+          className={`explain-text${
+            isLiked ? " explain-text_color_2" : " explain-text_color_1"
+          }`}
+        >
           <p>
             Outside of work, I enjoy exploring new design trends, experimenting
             with UI/UX prototypes, and contributing to open-source projects when
@@ -226,7 +260,7 @@ function App() {
         </div>
         <div className="border-line" />
       </div>
-      <TimeLine />
+      <TimeLine isLiked={isLiked} />
     </div>
   );
 }

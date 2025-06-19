@@ -9,7 +9,6 @@
 
 .timeline {
     position: relative;
-    background-color: rgba(27, 25, 25, 0.8);
     width: 100%;
     min-height: 100vh;
     z-index: 200;
@@ -55,7 +54,6 @@
 }
 
 .timeline-content {
-    background: linear-gradient(to right, #488bb8 50%, rgba(35, 69, 112, 0) 100%);
     padding: 20px 32px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -63,6 +61,16 @@
     max-width: 500px;
     position: relative;
     z-index: 2;
+}
+
+.timeline-content_1 {
+    background: linear-gradient(to right, #488bb8 50%, rgba(35, 69, 112, 0.5) 100%);
+}
+
+.timeline-content_2 {
+    background: linear-gradient(to right, #fa3f86 50%, rgba(255,
+                136,
+                120, 0.5) 100%);
 }
 
 .timeline-item.left .timeline-content {
